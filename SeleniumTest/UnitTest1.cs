@@ -25,7 +25,7 @@ namespace Guru99Demo
         {
             driver.Url = "http://www.google.co.in";
            IWebElement query =  driver.FindElement(By.Name("q"));
-            query.SendKeys("Netwoven");
+            query.SendKeys("Netwoven Inc");
             query.Submit();
 
 
