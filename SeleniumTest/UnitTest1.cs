@@ -1,38 +1,41 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Firefox;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Tests
+namespace Guru99Demo
 {
-    public class Tests
+    class Guru99Demo
     {
-        //[SetUp]
-        //public void Setup()
-        //{
-        //}
+        IWebDriver driver;
+
+        [SetUp]
+        public void startBrowser()
+        {
+            driver = new ChromeDriver("D:\\SeleniumDevOps\\SeleniumTest\\SeleniumTest\\bin\\Debug\\netcoreapp2.1");
+        }
 
         [Test]
-        public void Test1()
+        public void test()
         {
-            string homeURL = string.Empty;
+            driver.Url = "http://www.google.co.in";
+           IWebElement query =  driver.FindElement(By.Name("q"));
+            query.SendKeys("Netwoven");
+            query.Submit();
 
 
-            homeURL = "https://www.google.com/";
-
-            ChromeDriver objChromDriver = new ChromeDriver();
-            objChromDriver.Navigate().GoToUrl(homeURL);
-
-            WebDriverWait wait = new WebDriverWait(objChromDriver, System.TimeSpan.FromSeconds(15));
-            wait.Until(driver => driver.FindElement(By.CssSelector(".gLFyf.gsfi")));
-            IWebElement searchText = objChromDriver.FindElement(By.CssSelector(".gLFyf.gsfi"));
-            searchText.SendKeys("Netwoven");
-
-
-            WebDriverWait wait1 = new WebDriverWait(objChromDriver, System.TimeSpan.FromSeconds(15));
-            wait1.Until(driver => driver.FindElement(By.XPath("//*[@id='tsf']/div[2]/div/div[3]/center/input[1]")));
-            IWebElement btnClick = objChromDriver.FindElement(By.XPath("//*[@id='tsf']/div[2]/div/div[3]/center/input[1]"));
-            btnClick.Submit();
         }
+
+        [TearDown]
+        public void closeBrowser()
+        {
+            driver.Close();
+        }
+
     }
 }
